@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path'); // برای سرویس‌دهی فایل‌های استاتیک
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const contactRoutes = require('./routes/contactRoutes');
@@ -26,6 +27,14 @@ app.use('/api/messages', messageRoutes);
 
 // محدود کردن مسیرهای ادمین
 app.use('/api/admin', authController.protect, authController.restrictToAdmin);
+
+// --- Serve static files from React app ---
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// --- Catch-all route to serve index.html for all non-API routes ---
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
 
 // --- اتصال به MongoDB و اجرای سرور ---
 mongoose.connect(MONGO_URI, {
