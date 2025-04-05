@@ -26,7 +26,7 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/admin', authController.protect, authController.restrictToAdmin);
 
 // Connect to MongoDB and start server
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/usercontacts', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://sasansasanione:aaMXcIuATyRLtTaK@cluster0.fwjxsrd.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
