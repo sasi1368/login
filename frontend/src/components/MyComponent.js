@@ -1,21 +1,10 @@
-// /src/components/MyComponent.js
-import React, { useRef, useEffect } from 'react';
+// src/components/MyComponent.js
+import React from 'react';
 
 const MyComponent = () => {
-  const myRef = useRef(null);
-
-  useEffect(() => {
-    if (myRef.current) {
-      console.log('The element is present:', myRef.current);
-      myRef.current.focus();
-    } else {
-      console.log('Element is not available yet');
-    }
-  }, []);
-
   return (
     <div>
-      <input ref={myRef} type="text" placeholder="Focus me after render" />
+      <h1>Welcome to My Component!</h1>
     </div>
   );
 };
