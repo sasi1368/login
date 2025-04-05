@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // تغییر ایمپورت
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
   const [user, setUser] = useState({ name: '', email: '' });
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();  // تغییر از useHistory به useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      navigate('/login');  // تغییر history.push به navigate
+      navigate('/login');
     }
 
     const fetchUserData = async () => {
@@ -23,11 +23,12 @@ const Profile = () => {
         setFormData({ name: data.name, email: data.email });
       } catch (error) {
         console.error('Error fetching user data:', error);
+        setMessage('Failed to load user data.');
       }
     };
 
     fetchUserData();
-  }, [navigate]);  // تغییر history به navigate
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -39,14 +40,22 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+
+    // اگر هیچ تغییری در فرم داده نشده، درخواست ارسال نشود
+    if (formData.name === user.name && formData.email === user.email && formData.password === '') {
+      setMessage('No changes detected.');
+      return;
+    }
+
     try {
       const { data } = await axios.put('/api/users/profile', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setMessage(data.message);
+      setMessage(data.message || 'Profile updated successfully!');
       setUser({ ...user, ...formData });
     } catch (error) {
       console.error('Error updating profile:', error);
+      setMessage('Failed to update profile.');
     }
   };
 
