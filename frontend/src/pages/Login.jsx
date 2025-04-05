@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // اضافه کردن useNavigate
 
-const Login = ({ history }) => {
+const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+
+  const navigate = useNavigate();  // استفاده از useNavigate برای هدایت به صفحه دیگر
 
   const handleChange = (e) => {
     setFormData({
@@ -20,7 +23,7 @@ const Login = ({ history }) => {
       const { data } = await axios.post('/api/auth/login', formData);
       // Store the JWT token in localStorage
       localStorage.setItem('token', data.token);
-      history.push('/dashboard');
+      navigate('/dashboard');  // استفاده از navigate برای هدایت به داشبورد
     } catch (error) {
       console.error('Login failed:', error);
     }
