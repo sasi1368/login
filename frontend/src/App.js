@@ -7,6 +7,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminMessages from './pages/AdminMessages';
 import MessagePage from './pages/MessagePage';
 import AdminMessagesPage from './pages/AdminMessagesPage';
+import MyComponent from './components/MyComponent';  // وارد کردن کامپوننت جدید
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/admin-messages" element={<AdminMessages />} />
         <Route path="/messages" element={<MessagePage />} />
         <Route path="/admin/messages" element={<AdminMessagesPage />} />
+        <Route path="/mycomponent" element={<MyComponent />} /> {/* مسیر برای کامپوننت جدید */}
       </Routes>
     </Router>
   );
