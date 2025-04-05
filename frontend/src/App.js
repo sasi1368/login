@@ -1,25 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminMessages from './pages/AdminMessages';
-import MessagePage from './pages/MessagePage';  // صفحه پیام‌های کاربران
-import AdminMessagesPage from './pages/AdminMessagesPage';  // صفحه پیام‌های ادمین
+import MessagePage from './pages/MessagePage';
+import AdminMessagesPage from './pages/AdminMessagesPage';
 
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/admin-dashboard" component={AdminDashboard} />
-        <Route path="/admin-messages" component={AdminMessages} />
-        <Route path="/messages" component={MessagePage} />  {/* مسیر جدید برای پیام‌های کاربران */}
-        <Route path="/admin/messages" component={AdminMessagesPage} />  {/* مسیر جدید برای پیام‌های ادمین */}
-      </Switch>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/admin-messages" element={<AdminMessages />} />
+        <Route path="/messages" element={<MessagePage />} />
+        <Route path="/admin/messages" element={<AdminMessagesPage />} />
+      </Routes>
     </Router>
   );
 };

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';  // تغییر ایمپورت
 
 const Profile = () => {
   const [user, setUser] = useState({ name: '', email: '' });
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();  // تغییر از useHistory به useNavigate
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      history.push('/login');
+      navigate('/login');  // تغییر history.push به navigate
     }
 
     const fetchUserData = async () => {
@@ -27,7 +27,7 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [history]);
+  }, [navigate]);  // تغییر history به navigate
 
   const handleChange = (e) => {
     setFormData({
