@@ -7,7 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const contactRoutes = require('./routes/contactRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const authController = require('./controllers/authController');
-require('dotenv').config();
+require('dotenv').config(); // برای بارگذاری متغیرهای محیطی از فایل .env
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,14 +26,11 @@ app.use('/api/messages', messageRoutes);
 app.use('/api/admin', authController.protect, authController.restrictToAdmin);
 
 // Connect to MongoDB and start server
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/usercontacts', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  console.log("✅ MongoDB connected successfully!"); // Added success message
-  app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
-})
-.catch((err) => {
-  console.error('❌ MongoDB connection error:', err); // Error handling for MongoDB connection
-});
+  .then(() => {
+    app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+  })
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
